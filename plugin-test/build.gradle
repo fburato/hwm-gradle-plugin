@@ -1,10 +1,11 @@
 buildscript {
     repositories {
         mavenLocal()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.github.fburato.hwm-gradle-plugin:com.github.fburato.hwm-gradle-plugin.gradle.plugin:0.1'
+        classpath 'com.github.fburato:hwm-gradle-plugin:0.1'
     }
 }
 
@@ -12,7 +13,9 @@ plugins {
     id 'java'
 }
 
-apply plugin: 'com.github.fburato.hwm-gradle-plugin'
+import com.github.fburato.hwmgradle.HwmGradlePlugin
+
+apply plugin: HwmGradlePlugin
 
 
 sourceCompatibility = '1.8'
