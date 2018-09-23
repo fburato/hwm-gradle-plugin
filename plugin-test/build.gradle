@@ -1,0 +1,13 @@
+buildscript {
+    dependencies {
+        classpath group: 'com.github.fburato', name: 'hwm-gradle-plugin', version: '0.1-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'com.github.fburato.hwm-gradle-plugin'
+}
+
+
+sourceCompatibility = '1.8'

@@ -1,0 +1,55 @@
+plugins {
+    id 'maven-publish'
+    id 'java-gradle-plugin'
+    id 'java'
+}
+
+version= '0.1-SNAPSHOT'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = project.group
+            artifactId = project.name
+            version = project.version
+            pom {
+                name = 'HWM gradle plugin'
+                description = 'Highwheel modules gradle plugin'
+                url = 'https://github.com/fburato/highwheel-modules'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'frank'
+                        name = 'Francesco Burato'
+                        email = 'frankburato-github@yahoo.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://example.com/my-library.git'
+                    developerConnection = 'scm:git:ssh://example.com/my-library.git'
+                    url = 'http://example.com/my-library/'
+                }
+            }
+        }
+    }
+}
+
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = 'com.github.fburato.hwm-gradle-plugin'
+            implementationClass = 'com.github.fburato.hwmgradle.HwmGradlePlugin'
+        }
+    }
+}
+
+sourceCompatibility = '1.8'
+
+dependencies {
+    compile group: 'com.github.fburato', name: 'highwheel-modules-core', version: '1.2.0'
+}

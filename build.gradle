@@ -1,33 +1,9 @@
-plugins {
-    id 'java-gradle-plugin'
-    id 'java'
-}
+allprojects {
 
-repositories {
-    mavenCentral()
-}
+    group= 'com.github.fburato'
 
-sourceCompatibility = '1.8'
-
-sourceSets {
-    functionalTest {
-        groovy.srcDir file('src/funchTest/groovy')
-        compileClasspath += sourceSets.main.output + configurations.testRuntime
-        runtimeClasspath += output + compileClasspath
+    repositories {
+        mavenLocal()
+        mavenCentral()
     }
-}
-
-gradlePlugin {
-    plugins {
-        simplePlugin {
-            id = 'com.github.fburato.hwm-gradle-plugin'
-            implementationClass = 'com.github.fburato.hwmgradle.HwmGradlePlugin'
-        }
-
-        testSourceSets sourceSets.functionalTest
-    }
-}
-
-dependencies {
-    compile group: 'com.github.fburato', name: 'highwheel-modules-core', version: '1.2.0'
 }
