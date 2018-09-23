@@ -2,3 +2,5 @@ rootProject.name = "hwm-gradle"
 
 include 'hwm-gradle-plugin'
 include 'plugin-test'
+
+enableFeaturePreview('STABLE_PUBLISHING')

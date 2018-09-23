@@ -1,13 +1,25 @@
 buildscript {
+    repositories {
+        mavenLocal()
+    }
+
     dependencies {
-        classpath group: 'com.github.fburato', name: 'hwm-gradle-plugin', version: '0.1-SNAPSHOT'
+        classpath 'com.github.fburato.hwm-gradle-plugin:com.github.fburato.hwm-gradle-plugin.gradle.plugin:0.1'
     }
 }
 
 plugins {
     id 'java'
-    id 'com.github.fburato.hwm-gradle-plugin'
 }
+
+apply plugin: 'com.github.fburato.hwm-gradle-plugin'
 
 
 sourceCompatibility = '1.8'
+
+hwmAnalyse {
+    analysisMode = "strict"
+    evidenceLimit = -1
+}
+
+hwmAnalyse.dependsOn(compileJava)

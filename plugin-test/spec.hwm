@@ -1,0 +1,11 @@
+modules:
+    Main = "com.example.main.*"
+    Endpoints = "com.example.endpoints.*"
+    Core = "com.example.core.*"
+    IO = "com.example.io.*"
+    Config = "com.example.config.*"
+rules:
+    Main -> Endpoints -> Core
+    Main -> IO -> Core
+    Main -> Config
+    Main -> Core
