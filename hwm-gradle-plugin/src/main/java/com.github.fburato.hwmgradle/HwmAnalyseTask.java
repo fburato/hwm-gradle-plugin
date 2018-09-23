@@ -7,7 +7,6 @@ import org.gradle.api.GradleException;
 import org.gradle.api.InvalidUserDataException;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.TaskAction;
-import org.gradle.api.tasks.options.Option;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -39,7 +38,7 @@ public class HwmAnalyseTask extends DefaultTask {
         @Override
         public void ignoredPaths(List<String> ignored) {
             final String ignoreString = "Ignored: " + String.join(", ", ignored);
-            if(ignored.isEmpty()) {
+            if (ignored.isEmpty()) {
                 getLogger().info(ignoreString);
             } else {
                 getLogger().warn(ignoreString);
@@ -91,7 +90,7 @@ public class HwmAnalyseTask extends DefaultTask {
                     printGraphPath(actualPath)
             ));
 
-            if(evidenceLimit > 0) {
+            if (evidenceLimit > 0) {
                 getLogger().error("Actual evidence paths:");
                 printEvidences(actualPath, evidences);
             }
@@ -148,7 +147,7 @@ public class HwmAnalyseTask extends DefaultTask {
                     destModule,
                     printGraphPath(path)
             ));
-            if(evidenceLimit > 0) {
+            if (evidenceLimit > 0) {
                 getLogger().error("    Actual evidence paths:");
                 printEvidences(path, evidences);
             }
@@ -173,29 +172,29 @@ public class HwmAnalyseTask extends DefaultTask {
             for (Pair<String, String> evidence : currentToNextEvidences.subList(0, subListLimit)) {
                 getLogger().error(String.format("\t\t%s -> %s", evidence.first, evidence.second));
             }
-            if(subListLimit < currentToNextEvidences.size()) {
-                getLogger().error(String.format("\t\t(%d connections skipped)",(currentToNextEvidences.size() - subListLimit)));
+            if (subListLimit < currentToNextEvidences.size()) {
+                getLogger().error(String.format("\t\t(%d connections skipped)", (currentToNextEvidences.size() - subListLimit)));
             }
         }
     }
 
     public void setDefaults() {
-        if(specFile == null) {
+        if (specFile == null) {
             specFile = Paths.get(
                     getProject().getProjectDir().getAbsolutePath(),
                     DEFAULT_SPEC_FILE_PATH).toFile();
         }
-        if(analysisMode == null) {
+        if (analysisMode == null) {
             analysisMode = DEFAULT_ANALYSIS_MODE;
         }
-        if(analysisPaths == null) {
+        if (analysisPaths == null) {
             analysisPaths = Collections.singletonList(
                     Paths.get(
                             getProject().getBuildDir().getAbsolutePath(), "classes"
                     ).toFile()
             );
         }
-        if(evidenceLimit == null) {
+        if (evidenceLimit == null) {
             evidenceLimit = DEFAULT_EVIDENCE_LIMIT;
         }
         this.setDescription("Executes the highwheel-modules analysis on the current project");
@@ -214,7 +213,7 @@ public class HwmAnalyseTask extends DefaultTask {
         try {
             facade.runAnalysis(
                     getAnalysisPaths().stream().map(File::getAbsolutePath).collect(Collectors.toList()),
-                    specFile.getAbsolutePath(),getExecutionMode(analysisMode));
+                    specFile.getAbsolutePath(), getExecutionMode(analysisMode));
         } catch (Exception e) {
             throw new GradleException(e.getMessage());
         }
@@ -236,7 +235,6 @@ public class HwmAnalyseTask extends DefaultTask {
         return specFile;
     }
 
-    @Option(option = "specFile", description = "Path to the specification file to use in the analysis")
     public void setSpecFile(File specFile) {
         this.specFile = specFile;
     }
@@ -246,7 +244,6 @@ public class HwmAnalyseTask extends DefaultTask {
         return analysisMode;
     }
 
-    @Option(option = "analysisMode", description = "Type of analysis to run, either 'strict' or 'loose'")
     public void setAnalysisMode(String analysisMode) {
         this.analysisMode = analysisMode;
     }
@@ -256,7 +253,6 @@ public class HwmAnalyseTask extends DefaultTask {
         return analysisPaths;
     }
 
-    @Option(option = "analysisPaths", description = "List of directories and jars to include in the analysis")
     public void setAnalysisPaths(List<File> analysisPaths) {
         this.analysisPaths = analysisPaths;
     }
@@ -266,7 +262,6 @@ public class HwmAnalyseTask extends DefaultTask {
         return evidenceLimit;
     }
 
-    @Option(option = "evidenceLimit", description = "If greater than 0, print 'evidenceLimit' method call that violate the specification")
     public void setEvidenceLimit(int evidenceLimit) {
         this.evidenceLimit = evidenceLimit;
     }

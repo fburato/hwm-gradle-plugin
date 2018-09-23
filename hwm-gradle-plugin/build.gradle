@@ -6,7 +6,7 @@ plugins {
     id 'signing'
 }
 
-version= '0.1'
+version= '0.2'
 archivesBaseName = project.name
 
 publishing {
