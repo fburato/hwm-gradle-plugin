@@ -2,9 +2,12 @@ plugins {
     id 'maven-publish'
     id 'java-gradle-plugin'
     id 'java'
+    id 'maven'
+    id 'signing'
 }
 
 version= '0.1'
+archivesBaseName = project.name
 
 publishing {
     publications {
@@ -30,9 +33,53 @@ publishing {
                     }
                 }
                 scm {
-                    connection = 'scm:git:git://example.com/my-library.git'
-                    developerConnection = 'scm:git:ssh://example.com/my-library.git'
-                    url = 'http://example.com/my-library/'
+                    connection = 'scm:git:git@github.com:fburato/hwm-gradle-plugin.git'
+                    developerConnection = 'scm:git:git@github.com:fburato/hwm-gradle-plugin.git'
+                    url = 'https://github.com/fburato/highwheel-modules'
+                }
+            }
+        }
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'HWM gradle plugin'
+                packaging 'jar'
+                description 'Highwheel modules gradle plugin'
+                url 'https://github.com/fburato/highwheel-modules'
+
+                scm {
+                    connection = 'scm:git:git@github.com:fburato/hwm-gradle-plugin.git'
+                    developerConnection = 'scm:git:git@github.com:fburato/hwm-gradle-plugin.git'
+                    url = 'https://github.com/fburato/highwheel-modules'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'frank'
+                        name = 'Francesco Burato'
+                        email = 'frankburato-github@yahoo.com'
+                    }
                 }
             }
         }
@@ -47,6 +94,25 @@ gradlePlugin {
         }
     }
 }
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
 
 sourceCompatibility = '1.8'
 
