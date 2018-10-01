@@ -8,9 +8,9 @@ The plugin define a gradle task called `hwmAnalyse` which executes the highwheel
 settings for the configuration:
 
 * `analysisMode: String ( = "strict")`: either `strict` or `loose`,  sets the analysis mode for the module analysis.
-* `specFile: File ( = project.projectDir / "spec.hwm")`: sets the file containing
-the specification of the project to be used in the analysis.
-* `evidenceLimit: int ( = 0)`: sets the limit to the pieces of evidence showed by the plugin to prove that a rule in the 
+* `specFiles: List<File> ( = List(project.projectDir / "spec.hwm"))`: sets the files containing
+the specifications of the project to be used in the analysis.
+* `evidenceLimit: Optional<Integer> ( = Optional.of(0))`: sets the limit to the pieces of evidence showed by the plugin to prove that a rule in the 
 specification has been violated
 * `analysisPaths: List<File> ( = List(project.buildDir / "classes"))`: sets the files and directories that will
  be added to the analysis.
@@ -32,7 +32,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.fburato:hwm-gradle-plugin:0.2'
+        classpath 'com.github.fburato:hwm-gradle-plugin:1.0'
     }
 }
 
