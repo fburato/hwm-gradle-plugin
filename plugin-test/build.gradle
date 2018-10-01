@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.fburato:hwm-gradle-plugin:0.1'
+        classpath 'com.github.fburato:hwm-gradle-plugin:0.2-SNAPSHOT'
     }
 }
 
@@ -15,14 +15,20 @@ plugins {
 
 import com.github.fburato.hwmgradle.HwmGradlePlugin
 
+import java.nio.file.Paths
+
 apply plugin: HwmGradlePlugin
 
 
 sourceCompatibility = '1.8'
 
+File fromRoot(String specFile)  {
+    return Paths.get(projectDir.absolutePath,specFile).toFile()
+}
+
 hwmAnalyse {
     analysisMode = "strict"
-    evidenceLimit = -1
+    specFiles = Arrays.asList(fromRoot("spec.hwm"),fromRoot("alternative-spec.hwm"))
 }
 
 hwmAnalyse.dependsOn(compileJava)
