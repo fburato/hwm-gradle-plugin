@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.1] - 2018-10-03
+No need to provide a fully qualified package for the modules anymore! With the update of the core
+hwm to 1.4.0, now you can provide a prefix in the preamble of the specification that will be
+added to all regex in the module specification. Isn't that cool?
+
 ## [1.0] - 2018-10-01
 
 The plugin is now a big boy. It has had a few ride in Android code-bases, it has proved it is quite capable, and merits to get its driving license.

@@ -32,7 +32,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.fburato:hwm-gradle-plugin:1.0'
+        classpath 'com.github.fburato:hwm-gradle-plugin:1.1'
     }
 }
 
