@@ -1,11 +1,12 @@
+prefix: "com.example."
 modules:
-    Main = "com.example.main.*"
-    Endpoints = "com.example.endpoints.*"
-    Core = "com.example.core.*"
-    IO = "com.example.io.*"
-    Config = "com.example.config.*"
+    Main = "main.*"
+    Endpoints = "endpoints.*"
+    Core = "core.*"
+    IO = "io.*"
+    Config = "config.*"
 rules:
-//    Main -> Endpoints -> Core
-//    Main -> IO -> Core
-//    Main -> Config
-//    Main -> Core
+    Main -> Endpoints -> Core
+    Main -> IO -> Core
+    Main -> Config
+    Main -> Core
