@@ -6,7 +6,7 @@ plugins {
     id 'signing'
 }
 
-version= '1.1-SNAPSHOT'
+version= '1.1'
 archivesBaseName = project.name
 
 publishing {
