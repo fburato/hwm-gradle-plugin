@@ -1,4 +1,6 @@
 prefix: "com.example."
+whitelist: "com.example.*"
+blacklist: "nevermatches"
 modules:
     Main = "main.*"
     Endpoints = "endpoints.*"
@@ -6,7 +8,5 @@ modules:
     IO = "io.*"
     Config = "config.*"
 rules:
-    Main -> Endpoints -> Core
-    Main -> IO -> Core
-    Main -> Config
-    Main -> Core
+    Main -> (Endpoints, IO, Config, Core)
+    (Endpoints, IO) -> Core

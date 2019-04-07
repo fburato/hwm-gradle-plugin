@@ -1,3 +1,5 @@
+whitelist: "com.example.*"
+blacklist: "nevermatches"
 modules:
     Main = "com.example.main.*"
     Endpoints = "com.example.endpoints.*"
@@ -5,7 +7,5 @@ modules:
     IO = "com.example.io.*"
     Config = "com.example.config.*"
 rules:
-    Main -> Endpoints -> Core
-    Main -> IO -> Core
-    Main -> Config
-    Main -> Core
+    Main -> (Endpoints, IO, Config, Core)
+    (Endpoints, IO) -> Core
