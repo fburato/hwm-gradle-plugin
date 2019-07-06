@@ -7,7 +7,6 @@ on a gradle project as part of the build.
 The plugin define a gradle task called `hwmAnalyse` which executes the highwheel-modules analysis using the following
 settings for the configuration:
 
-* `analysisMode: String ( = "strict")`: either `strict` or `loose`,  sets the analysis mode for the module analysis.
 * `specFiles: List<File> ( = List(project.projectDir / "spec.hwm"))`: sets the files containing
 the specifications of the project to be used in the analysis.
 * `evidenceLimit: Optional<Integer> ( = Optional.of(0))`: sets the limit to the pieces of evidence showed by the plugin to prove that a rule in the 
@@ -32,7 +31,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.fburato:hwm-gradle-plugin:1.2'
+        classpath 'com.github.fburato:hwm-gradle-plugin:1.3'
     }
 }
 
