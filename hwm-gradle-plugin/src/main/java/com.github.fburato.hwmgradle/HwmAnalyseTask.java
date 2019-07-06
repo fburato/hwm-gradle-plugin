@@ -4,7 +4,6 @@ import com.github.fburato.highwheelmodules.core.AnalyserFacade;
 import com.github.fburato.highwheelmodules.utils.Pair;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
-import org.gradle.api.InvalidUserDataException;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.TaskAction;
 
@@ -12,17 +11,14 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class HwmAnalyseTask extends DefaultTask {
 
   private final String DEFAULT_SPEC_FILE_PATH = "spec.hwm";
-  private final String DEFAULT_ANALYSIS_MODE = "strict";
   private final Optional<Integer> DEFAULT_EVIDENCE_LIMIT = Optional.of(0);
   private List<File> specFiles;
-  private String analysisMode;
   private List<File> analysisPaths;
   private Optional<Integer> evidenceLimit;
 
@@ -181,9 +177,6 @@ public class HwmAnalyseTask extends DefaultTask {
           getProject().getProjectDir().getAbsolutePath(),
           DEFAULT_SPEC_FILE_PATH).toFile());
     }
-    if (analysisMode == null) {
-      analysisMode = DEFAULT_ANALYSIS_MODE;
-    }
     if (analysisPaths == null) {
       analysisPaths = Collections.singletonList(
           Paths.get(
@@ -211,7 +204,6 @@ public class HwmAnalyseTask extends DefaultTask {
       facade.runAnalysis(
           getAnalysisPaths().stream().map(File::getAbsolutePath).collect(Collectors.toList()),
           specFiles.stream().map(File::getAbsolutePath).collect(Collectors.toList()),
-          getExecutionMode(analysisMode),
           evidenceLimit);
     } catch (Exception e) {
       throw new GradleException(e.getMessage());
@@ -219,15 +211,6 @@ public class HwmAnalyseTask extends DefaultTask {
     getLogger().info("Module analysis complete");
   }
 
-  private AnalyserFacade.ExecutionMode getExecutionMode(String analysisMode) {
-    if (Objects.equals(analysisMode, "strict")) {
-      return AnalyserFacade.ExecutionMode.STRICT;
-    } else if (Objects.equals(analysisMode, "loose")) {
-      return AnalyserFacade.ExecutionMode.LOOSE;
-    } else {
-      throw new InvalidUserDataException("Parameter 'analysisMode' needs to be either 'strict' or 'loose''");
-    }
-  }
 
   @Input
   public List<File> getSpecFiles() {
@@ -236,15 +219,6 @@ public class HwmAnalyseTask extends DefaultTask {
 
   public void setSpecFiles(List<File> specFiles) {
     this.specFiles = specFiles;
-  }
-
-  @Input
-  public String getAnalysisMode() {
-    return analysisMode;
-  }
-
-  public void setAnalysisMode(String analysisMode) {
-    this.analysisMode = analysisMode;
   }
 
   @Input

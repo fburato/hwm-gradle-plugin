@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.fburato:hwm-gradle-plugin:1.2-SNAPSHOT'
+        classpath 'com.github.fburato:hwm-gradle-plugin:1.3-SNAPSHOT'
     }
 }
 
@@ -27,7 +27,6 @@ File fromRoot(String specFile)  {
 }
 
 hwmAnalyse {
-    analysisMode = "strict"
     specFiles = Arrays.asList(fromRoot("spec.hwm"),fromRoot("alternative-spec.hwm"))
 }
 

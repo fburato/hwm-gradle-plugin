@@ -1,6 +1,7 @@
 prefix: "com.example."
 whitelist: "com.example.*"
 blacklist: "nevermatches"
+mode: LOOSE
 modules:
     Main = "main.*"
     Endpoints = "endpoints.*"
