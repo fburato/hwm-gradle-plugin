@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.fburato:hwm-gradle-plugin:1.3-SNAPSHOT'
+        classpath 'com.github.fburato:hwm-gradle-plugin:1.4-SNAPSHOT'
     }
 }
 
